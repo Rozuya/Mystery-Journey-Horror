@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#050505">
+<title>Mystery Journey: Horror</title>
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<audio id="music" src="The Hollow Between.mp3"
+loop preload="auto"></audio>
+
+<main class="menu">
+
+  <section class="title">
+    <small>AN INTERACTIVE HORROR STORY</small>
+    <h1>MYSTERY<br>JOURNEY</h1>
+    <h2>HORROR</h2>
+    <p>Tout le monde a quelque chose à cacher.</p>
+  </section>
+
+  <nav class="menu-buttons">
+
+    <button id="newGame">NOUVELLE PARTIE</button>
+
+    <button id="continue" hidden>
+      CONTINUER
+    </button>
+
+    <button id="endings">MES FINS</button>
+
+    <button id="credits">CRÉDITS</button>
+
+  </nav>
+
+  <section class="music-box">
+    <span>🎵 THE HOLLOW BETWEEN</span>
+
+    <label for="volume">VOLUME <b id="volumeValue">70%</b></label>
+
+    <input id="volume" type="range"
+      min="1" max="100" value="70">
+  </section>
+
+  <footer>
+    MYSTERY JOURNEY: HORROR • 1.0
+  </footer>
+
+</main>
+
+<script>
+"use strict";
+
+const SAVE_KEY="mystery_journey_horror_save";
+const VOLUME_KEY="mjh_volume";
+
+const music=document.getElementById("music");
+const volume=document.getElementById("volume");
+const volumeValue=document.getElementById("volumeValue");
+const continueBtn=document.getElementById("continue");
+
+const savedVolume=
+Number(localStorage.getItem(VOLUME_KEY))||70;
+
+volume.value=savedVolume;
+volumeValue.textContent=savedVolume+"%";
+music.volume=savedVolume/100;
+
+function startMusic(){
+  music.play().catch(()=>{});
+}
+
+window.addEventListener("load",startMusic);
+
+["click","touchstart","keydown"].forEach(e=>{
+  document.addEventListener(e,startMusic,{once:true});
+});
+
+volume.addEventListener("input",()=>{
+  music.volume=volume.value/100;
+  volumeValue.textContent=volume.value+"%";
+  localStorage.setItem(VOLUME_KEY,volume.value);
+});
+
+if(localStorage.getItem(SAVE_KEY))
+  continueBtn.hidden=false;
+
+document.getElementById("newGame").onclick=()=>{
+  localStorage.removeItem(SAVE_KEY);
+  location.href="game.html";
+};
+
+continueBtn.onclick=()=>{
+  location.href="game.html";
+};
+
+document.getElementById("endings").onclick=()=>{
+  location.href="endings.html";
+};
+
+document.getElementById("credits").onclick=()=>{
+  location.href="credits.html";
+};
+</script>
+
+</body>
+</html>
