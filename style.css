@@ -1,0 +1,200 @@
+*{box-sizing:border-box}
+
+html,body{
+  margin:0;
+  width:100%;
+  min-height:100%;
+  background:#050505;
+  color:#eee;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+.menu{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  padding:30px 18px;
+  position:relative;
+  background:
+    radial-gradient(circle at 50% 35%,#202020 0,#0b0b0b 35%,#050505 75%);
+}
+
+.menu:before{
+  content:"";
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  background:repeating-linear-gradient(
+    0deg,
+    transparent 0,
+    transparent 3px,
+    rgba(255,255,255,.015) 4px
+  );
+}
+
+.title{
+  position:relative;
+  text-align:center;
+  animation:appear 1.4s ease;
+}
+
+.title small{
+  color:#888;
+  letter-spacing:4px;
+  font-size:11px;
+}
+
+.title h1{
+  margin:18px 0 0;
+  font-size:clamp(42px,9vw,86px);
+  line-height:.85;
+  letter-spacing:8px;
+  font-weight:900;
+}
+
+.title h2{
+  margin:15px 0;
+  color:#9b111e;
+  font-size:clamp(24px,5vw,42px);
+  letter-spacing:12px;
+  text-shadow:0 0 25px rgba(155,17,30,.35);
+}
+
+.title p{
+  color:#777;
+  font-size:14px;
+  margin:20px auto 35px;
+}
+
+.menu-buttons{
+  width:min(420px,100%);
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+  position:relative;
+}
+
+.menu-buttons button{
+  width:100%;
+  min-height:54px;
+  border:1px solid #292929;
+  background:#101010;
+  color:#ddd;
+  cursor:pointer;
+  font-size:13px;
+  font-weight:bold;
+  letter-spacing:2px;
+  transition:.25s;
+  border-radius:4px;
+}
+
+.menu-buttons button:hover{
+  background:#1b1b1b;
+  border-color:#8d1721;
+  color:#fff;
+  transform:translateY(-2px);
+}
+
+.menu-buttons button:active{
+  transform:scale(.98);
+}
+
+.music-box{
+  width:min(420px,100%);
+  margin-top:30px;
+  padding:15px;
+  border:1px solid #202020;
+  background:rgba(12,12,12,.8);
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  font-size:11px;
+  color:#777;
+}
+
+.music-box span{
+  color:#aaa;
+}
+
+.music-box label{
+  display:flex;
+  justify-content:space-between;
+}
+
+.music-box b{
+  color:#aaa;
+}
+
+.music-box input{
+  width:100%;
+  accent-color:#8d1721;
+  cursor:pointer;
+}
+
+footer{
+  position:relative;
+  margin-top:25px;
+  color:#444;
+  font-size:9px;
+  letter-spacing:2px;
+}
+
+@keyframes appear{
+  from{
+    opacity:0;
+    transform:translateY(15px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+@media(max-width:600px){
+  .menu{
+    padding:25px 16px;
+  }
+
+  .title h1{
+    letter-spacing:5px;
+  }
+
+  .title h2{
+    letter-spacing:8px;
+  }
+
+  .title p{
+    font-size:13px;
+    margin-bottom:28px;
+  }
+
+  .menu-buttons button{
+    min-height:58px;
+  }
+}
+
+@media(max-height:650px){
+  .menu{
+    justify-content:flex-start;
+    padding-top:25px;
+  }
+
+  .title h1{
+    margin-top:10px;
+  }
+
+  .title p{
+    margin:12px 0 20px;
+  }
+
+  .music-box{
+    margin-top:20px;
+  }
+}
