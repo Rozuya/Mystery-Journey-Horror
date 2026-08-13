@@ -10,100 +10,130 @@
 
 <body>
 
-<audio id="music" src="The Hollow Between.mp3"
-loop preload="auto"></audio>
+<div id="game">
 
-<main class="menu">
+<header class="game-header">
+<div>
+<small>MYSTERY JOURNEY</small>
+<h1>HORROR</h1>
+</div>
+</header>
 
-  <section class="title">
-    <small>AN INTERACTIVE HORROR STORY</small>
-    <h1>MYSTERY<br>JOURNEY</h1>
-    <h2>HORROR</h2>
-    <p>Tout le monde a quelque chose à cacher.</p>
-  </section>
+<main>
 
-  <nav class="menu-buttons">
+<section class="story-box">
 
-    <button id="newGame">NOUVELLE PARTIE</button>
+<div class="story-time">
+UNE HISTOIRE COMMENCE...
+</div>
 
-    <button id="continue" hidden>
-      CONTINUER
-    </button>
+<div class="speaker">
+🕵️ MYSTERY JOURNEY
+</div>
 
-    <button id="endings">MES FINS</button>
+<div class="story-text">
 
-    <button id="credits">CRÉDITS</button>
+Bienvenue.
 
-  </nav>
+Une histoire sombre vous attend.
 
-  <section class="music-box">
-    <span>🎵 THE HOLLOW BETWEEN</span>
+Vos décisions auront des conséquences.
+Certaines portes ne pourront plus être refermées.
 
-    <label for="volume">VOLUME <b id="volumeValue">70%</b></label>
+Êtes-vous prêt à découvrir
+ce qui se cache derrière le mystère ?
 
-    <input id="volume" type="range"
-      min="1" max="100" value="70">
-  </section>
+</div>
 
-  <footer>
-    MYSTERY JOURNEY: HORROR • 1.0
-  </footer>
+<div class="choices">
+
+<button class="choice"
+onclick="startGame()">
+▶ Nouvelle partie
+</button>
+
+<button class="choice"
+onclick="continueGame()">
+💾 Continuer
+</button>
+
+</div>
+
+</section>
 
 </main>
 
-<script>
-"use strict";
+<footer>
 
-const SAVE_KEY="mystery_journey_horror_save";
-const VOLUME_KEY="mjh_volume";
+<div class="music">
+<span>🎵</span>
+<span>The Hollow Between</span>
+</div>
+
+</footer>
+
+</div>
+
+<audio
+id="music"
+loop
+preload="auto">
+
+<source
+src="The Hollow Between.mp3"
+type="audio/mpeg">
+
+</audio>
+
+<script>
+
+const SAVE_KEY="mystery_journey_save";
 
 const music=document.getElementById("music");
-const volume=document.getElementById("volume");
-const volumeValue=document.getElementById("volumeValue");
-const continueBtn=document.getElementById("continue");
-
-const savedVolume=
-Number(localStorage.getItem(VOLUME_KEY))||70;
-
-volume.value=savedVolume;
-volumeValue.textContent=savedVolume+"%";
-music.volume=savedVolume/100;
 
 function startMusic(){
-  music.play().catch(()=>{});
+
+music.volume=.45;
+
+const play=music.play();
+
+if(play){
+play.catch(()=>{});
 }
 
-window.addEventListener("load",startMusic);
+}
 
-["click","touchstart","keydown"].forEach(e=>{
-  document.addEventListener(e,startMusic,{once:true});
-});
+document.addEventListener(
+"click",
+startMusic,
+{once:true}
+);
 
-volume.addEventListener("input",()=>{
-  music.volume=volume.value/100;
-  volumeValue.textContent=volume.value+"%";
-  localStorage.setItem(VOLUME_KEY,volume.value);
-});
+function startGame(){
 
-if(localStorage.getItem(SAVE_KEY))
-  continueBtn.hidden=false;
+localStorage.removeItem(SAVE_KEY);
 
-document.getElementById("newGame").onclick=()=>{
-  localStorage.removeItem(SAVE_KEY);
-  location.href="game.html";
-};
+window.location.href="game.html";
 
-continueBtn.onclick=()=>{
-  location.href="game.html";
-};
+}
 
-document.getElementById("endings").onclick=()=>{
-  location.href="endings.html";
-};
+function continueGame(){
 
-document.getElementById("credits").onclick=()=>{
-  location.href="credits.html";
-};
+const save=
+localStorage.getItem(SAVE_KEY);
+
+if(save){
+
+window.location.href="game.html";
+
+}else{
+
+startGame();
+
+}
+
+}
+
 </script>
 
 </body>
