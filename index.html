@@ -47,13 +47,15 @@ ce qui se cache derrière le mystère ?
 
 <div class="choices">
 
-<button class="choice"
-onclick="startGame()">
+<button
+class="choice"
+id="newGameBtn">
 ▶ Nouvelle partie
 </button>
 
-<button class="choice"
-onclick="continueGame()">
+<button
+class="choice"
+id="continueBtn">
 💾 Continuer
 </button>
 
@@ -87,15 +89,29 @@ type="audio/mpeg">
 
 <script>
 
-const SAVE_KEY="mystery_journey_save";
+/* =========================
+   CONFIGURATION
+========================= */
 
-const music=document.getElementById("music");
+const SAVE_KEY =
+"mystery_journey_horror_save_v1";
+
+const music =
+document.getElementById("music");
+
+
+/* =========================
+   MUSIQUE
+========================= */
 
 function startMusic(){
 
-music.volume=.45;
+if(!music) return;
 
-const play=music.play();
+music.volume = 0.45;
+
+const play =
+music.play();
 
 if(play){
 play.catch(()=>{});
@@ -109,28 +125,123 @@ startMusic,
 {once:true}
 );
 
+
+/* =========================
+   NOUVELLE PARTIE
+========================= */
+
 function startGame(){
 
-localStorage.removeItem(SAVE_KEY);
+/*
+   IMPORTANT :
+   On supprime UNIQUEMENT
+   la vraie sauvegarde utilisée
+   par save.js.
+*/
 
-window.location.href="game.html";
+try{
+
+localStorage.removeItem(
+SAVE_KEY
+);
+
+}catch(error){
+
+console.error(
+"Impossible de supprimer la sauvegarde",
+error
+);
 
 }
 
+/*
+   On ouvre ensuite le jeu.
+
+   Comme la sauvegarde vient d'être
+   supprimée, game.js démarrera
+   automatiquement au début.
+*/
+
+window.location.href =
+"game.html";
+
+}
+
+
+/* =========================
+   CONTINUER
+========================= */
+
 function continueGame(){
 
-const save=
-localStorage.getItem(SAVE_KEY);
+let save = null;
+
+try{
+
+save =
+localStorage.getItem(
+SAVE_KEY
+);
+
+}catch(error){
+
+console.error(error);
+
+}
+
+/*
+   Une sauvegarde existe :
+   on la conserve et on continue.
+*/
 
 if(save){
 
-window.location.href="game.html";
+window.location.href =
+"game.html";
 
-}else{
+return;
+
+}
+
+/*
+   Aucune sauvegarde :
+   on commence une nouvelle partie.
+*/
 
 startGame();
 
 }
+
+
+/* =========================
+   BOUTONS
+========================= */
+
+const newGameBtn =
+document.getElementById(
+"newGameBtn"
+);
+
+const continueBtn =
+document.getElementById(
+"continueBtn"
+);
+
+if(newGameBtn){
+
+newGameBtn.addEventListener(
+"click",
+startGame
+);
+
+}
+
+if(continueBtn){
+
+continueBtn.addEventListener(
+"click",
+continueGame
+);
 
 }
 
