@@ -10,24 +10,22 @@
 
 <body>
 
-<audio id="music" src="The Hollow Between.mp3"
+<audio id="music"
+src="The Hollow Between.mp3"
 loop preload="auto"></audio>
 
 <div id="game">
 
 <header class="game-top">
-
-  <button id="menuBtn" type="button">☰</button>
+  <button id="menuBtn">☰</button>
 
   <div class="chapter">
     <small id="chapter">PROLOGUE</small>
     <span id="scene">00:00</span>
   </div>
 
-  <button id="saveBtn" type="button">💾</button>
-
+  <button id="saveBtn">💾</button>
 </header>
-
 
 <main class="story">
 
@@ -39,20 +37,17 @@ loop preload="auto"></audio>
 
     <div id="speaker"></div>
 
-    <div id="text" aria-live="polite"></div>
+    <div id="text"></div>
 
-    <button id="next" type="button">
+    <button id="next">
       CONTINUER
     </button>
 
   </section>
 
-
   <section id="choices" class="choices"></section>
 
-
   <aside class="status">
-
     <div>
       <span>🔎 Indices</span>
       <b id="clues">0</b>
@@ -62,40 +57,27 @@ loop preload="auto"></audio>
       <span>🎒 Objets</span>
       <b id="items">0</b>
     </div>
-
   </aside>
 
 </main>
 
-
 <div id="fade"></div>
 
-
 <div id="pause" hidden>
-
   <div class="pause-box">
 
     <h2>PAUSE</h2>
 
-    <button id="resume" type="button">
-      REPRENDRE
-    </button>
-
-    <button id="savePause" type="button">
-      SAUVEGARDER
-    </button>
-
-    <button id="quit" type="button">
-      MENU PRINCIPAL
-    </button>
+    <button id="resume">REPRENDRE</button>
+    <button id="savePause">SAUVEGARDER</button>
+    <button id="quit">MENU PRINCIPAL</button>
 
   </div>
-
 </div>
 
+<div id="notification"></div>
 
-<div id="notification" aria-live="polite"></div>
-
+</div>
 
 <script src="save.js"></script>
 <script src="story.js"></script>
