@@ -1,175 +1,165 @@
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+box-sizing:border-box;
+margin:0;
+padding:0
+}
 
 :root{
---bg:#020202;
+--bg:#030303;
 --bg2:#080808;
---panel:#0c0c0c;
+--panel:#0b0b0b;
 --panel2:#111;
---border:#242424;
---red:#8e1d1d;
---red2:#c22b2b;
---white:#eee;
---text:#d7d7d7;
+--border:#292929;
+--red:#8f1d1d;
+--red2:#c52b2b;
+--text:#dedede;
 --muted:#707070;
---dark:#444
+--white:#f2f2f2
 }
 
 html{
 min-height:100%;
-scroll-behavior:smooth
+background:#030303
 }
 
 body{
 min-height:100vh;
 background:
-radial-gradient(circle at 50% 20%,#181818 0,#080808 45%,#020202 100%);
+radial-gradient(
+ellipse at 50% 0%,
+#191919 0%,
+#0b0b0b 35%,
+#030303 78%,
+#000 100%
+);
+background-attachment:fixed;
 color:var(--text);
 font-family:Arial,Helvetica,sans-serif;
 overflow-x:hidden
 }
 
-button,input,select{
+body:before{
+content:"";
+position:fixed;
+inset:0;
+pointer-events:none;
+z-index:999;
+opacity:.045;
+background-image:
+url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.8'/%3E%3C/svg%3E")
+}
+
+button,
+input{
 font-family:inherit
 }
 
-button{cursor:pointer}
-
-a{
-color:inherit;
-text-decoration:none
+button{
+cursor:pointer
 }
 
-/* =====================
-   STRUCTURE
-===================== */
-
 #game{
+position:relative;
 min-height:100vh;
 display:flex;
 flex-direction:column;
-position:relative
+background:
+radial-gradient(
+circle at 50% 35%,
+rgba(90,0,0,.055),
+transparent 48%
+)
 }
 
+/* =========================
+   HEADER
+========================= */
+
 .game-header{
-height:78px;
+position:relative;
+z-index:5;
+width:100%;
+min-height:78px;
 display:flex;
 align-items:center;
 justify-content:space-between;
 padding:0 5%;
-border-bottom:1px solid var(--border);
-background:rgba(0,0,0,.86);
+border-bottom:1px solid rgba(255,255,255,.08);
+background:rgba(2,2,2,.88);
+box-shadow:0 8px 35px rgba(0,0,0,.45);
 backdrop-filter:blur(12px);
--webkit-backdrop-filter:blur(12px);
-position:relative;
-z-index:10
+-webkit-backdrop-filter:blur(12px)
 }
 
 .game-header small{
 display:block;
 font-size:9px;
-letter-spacing:3px;
-color:var(--muted);
+font-weight:bold;
+letter-spacing:4px;
+color:#666;
 text-transform:uppercase
 }
 
 .game-header h1{
 margin-top:5px;
-font-size:21px;
-letter-spacing:3px;
-color:var(--white)
+font-size:22px;
+font-weight:700;
+letter-spacing:4px;
+color:var(--white);
+text-shadow:0 0 20px rgba(255,255,255,.05)
 }
+
+/* =========================
+   CONTENU
+========================= */
 
 main{
 width:min(900px,92%);
 margin:auto;
-padding:35px 0;
+padding:38px 0;
 flex:1
 }
 
-/* =====================
-   ECRANS / CHAPITRES
-===================== */
-
-.screen{
-display:none;
-width:100%
-}
-
-.screen.active{
-display:block;
-animation:screenIn .45s ease
-}
-
-.chapter{
-width:100%;
-animation:screenIn .45s ease
-}
-
-.chapter-header{
-margin-bottom:20px;
-padding-bottom:15px;
-border-bottom:1px solid var(--border)
-}
-
-.chapter-number{
-font-size:9px;
-letter-spacing:4px;
-color:var(--red2);
-text-transform:uppercase
-}
-
-.chapter-title{
-margin-top:7px;
-font-size:24px;
-letter-spacing:2px;
-color:#eee
-}
-
-.scene{
-width:100%;
-padding:35px;
-border:1px solid var(--border);
-border-radius:15px;
-background:
-linear-gradient(145deg,rgba(18,18,18,.97),rgba(5,5,5,.99));
-box-shadow:0 25px 80px rgba(0,0,0,.6);
-position:relative;
-overflow:hidden;
-animation:sceneIn .55s ease
-}
-
-.scene:after{
-content:"";
-position:absolute;
-inset:0;
-pointer-events:none;
-background:linear-gradient(
-90deg,
-transparent,
-rgba(255,255,255,.018),
-transparent
-)
-}
-
-/* =====================
-   HISTOIRE
-===================== */
+/* =========================
+   STORY BOX
+========================= */
 
 .story-box{
+position:relative;
 width:100%;
 min-height:480px;
-padding:38px;
-border:1px solid var(--border);
-border-radius:16px;
-background:
-linear-gradient(145deg,rgba(18,18,18,.97),rgba(5,5,5,.99));
-box-shadow:0 25px 80px rgba(0,0,0,.6);
 display:flex;
 flex-direction:column;
 justify-content:center;
-position:relative;
+padding:42px;
 overflow:hidden;
-animation:sceneIn .55s ease
+border:1px solid var(--border);
+border-radius:16px;
+background:
+linear-gradient(
+145deg,
+rgba(19,19,19,.97),
+rgba(5,5,5,.99)
+);
+box-shadow:
+0 30px 90px rgba(0,0,0,.7),
+0 0 50px rgba(100,0,0,.035);
+animation:boxIn .65s ease
+}
+
+.story-box:before{
+content:"";
+position:absolute;
+top:0;
+left:0;
+width:100%;
+height:1px;
+background:linear-gradient(
+90deg,
+transparent,
+rgba(190,40,40,.45),
+transparent
+)
 }
 
 .story-box:after{
@@ -177,29 +167,37 @@ content:"";
 position:absolute;
 inset:0;
 pointer-events:none;
-background:linear-gradient(
-90deg,
-transparent,
-rgba(255,255,255,.018),
-transparent
+background:
+radial-gradient(
+circle at 50% 45%,
+transparent 25%,
+rgba(0,0,0,.25) 100%
 )
 }
 
-.story-time{
+/* =========================
+   TEXTE
+========================= */
+
+.story-time,
+.speaker,
+.story-text{
 position:relative;
-z-index:1;
+z-index:2
+}
+
+.story-time{
+margin-bottom:24px;
 font-size:10px;
+font-weight:bold;
 letter-spacing:4px;
-color:#666;
-text-transform:uppercase;
-margin-bottom:24px
+color:#626262;
+text-transform:uppercase
 }
 
 .speaker{
-position:relative;
-z-index:1;
 min-height:18px;
-margin-bottom:14px;
+margin-bottom:15px;
 font-size:11px;
 font-weight:bold;
 letter-spacing:2px;
@@ -208,118 +206,86 @@ text-transform:uppercase
 }
 
 .story-text{
-position:relative;
-z-index:1;
+min-height:150px;
 font-family:Georgia,"Times New Roman",serif;
 font-size:20px;
-line-height:1.85;
-color:#ddd;
+line-height:1.9;
+color:#d8d8d8;
 white-space:pre-line;
-min-height:150px;
-animation:textIn .5s ease
+animation:textIn .55s ease
 }
 
-/* =====================
-   DIALOGUES
-===================== */
-
-.dialogue{
-position:relative;
-z-index:2;
-margin:20px 0;
-padding:18px 20px;
-border-left:2px solid var(--red);
-background:rgba(255,255,255,.025);
-animation:textIn .4s ease
-}
-
-.dialogue .name,
-.character-name{
-display:block;
-margin-bottom:8px;
-font-size:10px;
-font-weight:bold;
-letter-spacing:2px;
-color:var(--red2);
-text-transform:uppercase
-}
-
-.dialogue .text{
-font-family:Georgia,"Times New Roman",serif;
-font-size:17px;
-line-height:1.75;
-color:#d5d5d5
-}
-
-/* =====================
-   NARRATION
-===================== */
-
-.narration{
-position:relative;
-z-index:2;
-margin:15px 0;
-font-family:Georgia,"Times New Roman",serif;
-font-size:18px;
-line-height:1.85;
-color:#999;
-font-style:italic;
-animation:textIn .5s ease
-}
-
-.description{
-position:relative;
-z-index:2;
-font-family:Georgia,"Times New Roman",serif;
-font-size:17px;
-line-height:1.8;
-color:#aaa
-}
-
-/* =====================
+/* =========================
    CHOIX
-===================== */
+========================= */
 
 .choices{
 position:relative;
-z-index:5;
+z-index:3;
 display:flex;
 flex-direction:column;
 gap:11px;
-margin-top:28px
+margin-top:30px
 }
 
 .choice{
+position:relative;
 width:100%;
 padding:16px 18px;
-border:1px solid #292929;
+border:1px solid #2a2a2a;
 border-radius:10px;
-background:#0b0b0b;
-color:#ccc;
-text-align:left;
+outline:none;
+background:
+linear-gradient(
+135deg,
+#0d0d0d,
+#080808
+);
+color:#cfcfcf;
 font-size:14px;
+line-height:1.4;
+text-align:left;
 transition:
+transform .2s ease,
 background .2s ease,
 border-color .2s ease,
 color .2s ease,
-transform .2s ease;
-animation:choiceIn .35s ease both
+box-shadow .2s ease;
+animation:choiceIn .4s ease both
 }
 
-.choice:nth-child(2){animation-delay:.05s}
-.choice:nth-child(3){animation-delay:.1s}
-.choice:nth-child(4){animation-delay:.15s}
-.choice:nth-child(5){animation-delay:.2s}
+.choice:nth-child(1){animation-delay:.04s}
+.choice:nth-child(2){animation-delay:.09s}
+.choice:nth-child(3){animation-delay:.14s}
+.choice:nth-child(4){animation-delay:.19s}
+.choice:nth-child(5){animation-delay:.24s}
+
+.choice:before{
+content:"";
+position:absolute;
+left:0;
+top:0;
+bottom:0;
+width:2px;
+border-radius:10px 0 0 10px;
+background:transparent;
+transition:.2s
+}
 
 .choice:hover{
-background:#171717;
+transform:translateX(6px);
 border-color:#702222;
+background:#151515;
 color:#fff;
-transform:translateX(5px)
+box-shadow:0 8px 25px rgba(0,0,0,.4)
+}
+
+.choice:hover:before{
+background:var(--red2)
 }
 
 .choice:active{
-transform:scale(.985)
+transform:translateX(3px) scale(.99)
 }
 
 .choice:disabled{
@@ -328,366 +294,199 @@ cursor:not-allowed;
 transform:none
 }
 
-/* =====================
-   BOUTONS
-===================== */
+/* =========================
+   BOUTON SAUVEGARDE / MENU
+========================= */
 
 .small-btn{
-padding:10px 15px;
-border:1px solid #292929;
+border:1px solid #303030;
 border-radius:8px;
-background:#0b0b0b;
+padding:10px 14px;
+background:#0a0a0a;
 color:#aaa;
 font-size:13px;
-transition:.2s
+transition:
+background .2s ease,
+border-color .2s ease,
+color .2s ease,
+transform .2s ease
 }
 
 .small-btn:hover{
-background:#181818;
-border-color:#702222;
-color:#fff
-}
-
-.primary-btn{
-padding:14px 20px;
-border:1px solid #652020;
-border-radius:9px;
-background:#160707;
-color:#ddd;
-font-size:14px;
-transition:.2s
-}
-
-.primary-btn:hover{
-background:#281010;
-border-color:#a22a2a;
+border-color:#6d2222;
+background:#171717;
 color:#fff;
-transform:translateY(-2px)
+transform:translateY(-1px)
 }
 
-/* =====================
-   EVENEMENT IMPORTANT
-===================== */
-
-.event{
-margin:25px 0;
-padding:20px;
-border:1px solid #391818;
-border-radius:10px;
-background:
-linear-gradient(135deg,#100707,#080808);
-animation:eventIn .5s ease
+.small-btn:active{
+transform:scale(.96)
 }
 
-.event-title{
-margin-bottom:10px;
-font-size:12px;
-font-weight:bold;
-letter-spacing:2px;
-color:var(--red2);
-text-transform:uppercase
-}
-
-.event-text{
-font-family:Georgia,"Times New Roman",serif;
-font-size:16px;
-line-height:1.7;
-color:#bbb
-}
-
-/* =====================
-   HORREUR
-===================== */
-
-.horror{
-border-color:#441515!important;
-box-shadow:
-0 0 45px rgba(110,0,0,.12),
-0 25px 80px rgba(0,0,0,.7)
-}
-
-.warning{
-color:#b52a2a;
-font-size:11px;
-font-weight:bold;
-letter-spacing:2px;
-text-transform:uppercase;
-animation:pulse 1.8s infinite
-}
-
-.whisper{
-color:#555;
-font-family:Georgia,"Times New Roman",serif;
-font-style:italic;
-letter-spacing:.5px
-}
-
-.blood{
-color:#9e2020
-}
-
-/* =====================
-   STATS / HUD
-===================== */
+/* =========================
+   STATS
+========================= */
 
 .status{
+width:min(900px,100%);
 display:grid;
 grid-template-columns:repeat(3,1fr);
 gap:10px;
-margin-top:15px
+margin:15px auto 0
 }
 
 .status>div{
-padding:13px;
+padding:14px 10px;
 border:1px solid var(--border);
 border-radius:10px;
-background:#070707;
-text-align:center
+background:rgba(7,7,7,.94);
+text-align:center;
+box-shadow:0 10px 30px rgba(0,0,0,.2)
 }
 
 .status span{
 display:block;
-margin-bottom:6px;
+margin-bottom:7px;
 font-size:9px;
+font-weight:bold;
 letter-spacing:2px;
-color:#666;
+color:#5f5f5f;
 text-transform:uppercase
 }
 
 .status b{
-font-size:16px;
+font-size:17px;
+font-weight:700;
 color:#ddd
 }
 
-.progress{
-width:100%;
-height:5px;
-margin-top:10px;
-border-radius:10px;
-background:#181818;
-overflow:hidden
-}
-
-.progress-bar{
-width:0;
-height:100%;
-background:var(--red2);
-transition:width .4s ease
-}
-
-/* =====================
-   SAUVEGARDE
-===================== */
-
-.save-box{
-margin-top:18px;
-padding:12px;
-border:1px solid var(--border);
-border-radius:8px;
-background:#070707;
-font-size:11px;
-color:#666
-}
-
-.save-ok{
-color:#729572
-}
-
-/* =====================
-   FORMULAIRES
-===================== */
-
-input,
-select{
-width:100%;
-padding:12px;
-border:1px solid #292929;
-border-radius:8px;
-background:#0b0b0b;
-color:#ddd;
-outline:none
-}
-
-input:focus,
-select:focus{
-border-color:#702222;
-box-shadow:0 0 0 2px rgba(130,25,25,.08)
-}
-
-input::placeholder{
-color:#555
-}
-
-.form-group{
-margin-bottom:14px
-}
-
-.form-group label{
-display:block;
-margin-bottom:7px;
-font-size:10px;
-letter-spacing:2px;
-color:#666;
-text-transform:uppercase
-}
-
-/* =====================
-   MENU PRINCIPAL
-===================== */
-
-.menu{
-width:min(700px,92%);
-margin:auto;
-padding:30px 0
-}
-
-.menu-title{
-text-align:center;
-margin-bottom:35px
-}
-
-.menu-title h1{
-font-size:42px;
-letter-spacing:5px;
-text-transform:uppercase
-}
-
-.menu-title p{
-margin-top:10px;
-font-size:11px;
-letter-spacing:3px;
-color:#666
-}
-
-.menu-buttons{
-display:flex;
-flex-direction:column;
-gap:12px
-}
-
-.menu-buttons button{
-width:100%;
-padding:17px;
-border:1px solid #292929;
-border-radius:10px;
-background:#0b0b0b;
-color:#ddd;
-font-size:15px;
-transition:.2s
-}
-
-.menu-buttons button:hover{
-background:#171717;
-border-color:#702222;
-transform:translateY(-2px)
-}
-
-/* =====================
-   MUSIQUE
-===================== */
-
-.music{
-display:flex;
-align-items:center;
-gap:9px;
-font-size:12px;
-color:#777
-}
-
-.music-name{
-font-size:12px;
-color:#777
-}
-
-#volume{
-width:125px;
-height:4px;
-accent-color:var(--red2);
-cursor:pointer
-}
-
-#volumeValue{
-width:38px;
-text-align:right;
-font-size:12px;
-color:#777
-}
+/* =========================
+   FOOTER
+========================= */
 
 footer{
-min-height:66px;
+position:relative;
+z-index:5;
+width:100%;
+min-height:67px;
 display:flex;
 align-items:center;
 justify-content:space-between;
 gap:15px;
 padding:11px 5%;
-border-top:1px solid var(--border);
-background:#050505
+border-top:1px solid rgba(255,255,255,.07);
+background:rgba(3,3,3,.94);
+box-shadow:0 -10px 35px rgba(0,0,0,.3)
 }
 
-/* =====================
-   TOAST
-===================== */
-
-#toast{
-position:fixed;
-left:50%;
-bottom:82px;
-z-index:100;
-padding:12px 18px;
-border:1px solid #333;
-border-radius:8px;
-background:#101010;
-color:#ddd;
-font-size:13px;
-pointer-events:none;
-opacity:0;
-transform:translate(-50%,18px);
-transition:.3s
+.music{
+display:flex;
+align-items:center;
+justify-content:center;
+gap:9px;
+font-size:12px;
+color:#777
 }
 
-#toast.show{
-opacity:1;
-transform:translate(-50%,0)
+#volume{
+width:130px;
+height:4px;
+appearance:none;
+-webkit-appearance:none;
+border-radius:10px;
+background:#292929;
+outline:none;
+cursor:pointer
 }
 
-/* =====================
-   FIN
-===================== */
+#volume::-webkit-slider-thumb{
+appearance:none;
+-webkit-appearance:none;
+width:13px;
+height:13px;
+border-radius:50%;
+background:var(--red2);
+border:2px solid #080808;
+box-shadow:0 0 8px rgba(190,30,30,.3)
+}
+
+#volume::-moz-range-thumb{
+width:13px;
+height:13px;
+border-radius:50%;
+background:var(--red2);
+border:2px solid #080808
+}
+
+#volumeValue{
+width:38px;
+font-size:11px;
+color:#777;
+text-align:right
+}
+
+/* =========================
+   ECRAN DE FIN
+========================= */
 
 .ending{
 position:fixed;
 inset:0;
-z-index:50;
+z-index:100;
 display:flex;
 align-items:center;
 justify-content:center;
 padding:20px;
 background:
-radial-gradient(circle,#260000 0,#050000 45%,#000 100%)
+radial-gradient(
+circle at center,
+rgba(70,0,0,.5),
+rgba(5,0,0,.97) 65%,
+#000 100%
+);
+animation:endingIn .5s ease
+}
+
+.ending.hidden{
+display:none
 }
 
 .ending-card{
 width:min(600px,100%);
-padding:42px 30px;
-border:1px solid #481818;
-border-radius:15px;
-background:#080808;
-text-align:center;
-box-shadow:0 0 100px rgba(100,0,0,.25)
+padding:42px 32px;
+border:1px solid #4b1717;
+border-radius:16px;
+background:
+linear-gradient(
+145deg,
+#111,
+#050505
+);
+box-shadow:
+0 30px 100px rgba(0,0,0,.8),
+0 0 80px rgba(100,0,0,.15);
+text-align:center
+}
+
+#endingIcon{
+margin-bottom:15px;
+font-size:40px
 }
 
 .ending-card h2{
 margin-bottom:18px;
 font-size:29px;
-letter-spacing:4px
+letter-spacing:4px;
+color:#eee;
+text-transform:uppercase
 }
 
 .ending-card p{
-margin-bottom:25px;
+margin-bottom:28px;
 font-family:Georgia,"Times New Roman",serif;
 font-size:16px;
-line-height:1.75;
-color:#999
+line-height:1.8;
+color:#aaa
 }
 
 .ending-actions{
@@ -697,53 +496,175 @@ gap:10px;
 flex-wrap:wrap
 }
 
-/* =====================
-   UTILITAIRES
-===================== */
-
-.hidden{
-display:none!important
+.ending-actions button{
+padding:13px 20px;
+border:1px solid #3b3b3b;
+border-radius:8px;
+background:#0d0d0d;
+color:#ccc;
+transition:.2s
 }
 
-.visible{
-display:block!important
+.ending-actions button:hover{
+background:#1a1a1a;
+border-color:#8c2727;
+color:#fff
 }
 
-.fade{
+/* =========================
+   TOAST
+========================= */
+
+#toast{
+position:fixed;
+left:50%;
+bottom:82px;
+z-index:200;
+max-width:90%;
+padding:12px 18px;
+border:1px solid #333;
+border-radius:9px;
+background:rgba(13,13,13,.97);
+box-shadow:0 12px 35px rgba(0,0,0,.5);
+color:#ddd;
+font-size:13px;
+pointer-events:none;
+opacity:0;
+transform:translate(-50%,18px);
+transition:
+opacity .3s ease,
+transform .3s ease
+}
+
+#toast.show{
+opacity:1;
+transform:translate(-50%,0)
+}
+
+/* =========================
+   CLASSES POSSIBLES
+   POUR LES CHAPITRES
+========================= */
+
+.chapter{
+animation:boxIn .5s ease
+}
+
+.chapter-title{
+margin-bottom:20px;
+font-size:24px;
+letter-spacing:3px;
+color:#eee
+}
+
+.chapter-number{
+margin-bottom:8px;
+font-size:9px;
+letter-spacing:4px;
+color:var(--red2);
+text-transform:uppercase
+}
+
+.dialogue{
+margin:20px 0;
+padding:17px 20px;
+border-left:2px solid var(--red);
+background:rgba(255,255,255,.025);
+animation:textIn .4s ease
+}
+
+.character-name{
+display:block;
+margin-bottom:7px;
+font-size:10px;
+font-weight:bold;
+letter-spacing:2px;
+color:var(--red2);
+text-transform:uppercase
+}
+
+.narration{
+margin:15px 0;
+font-family:Georgia,"Times New Roman",serif;
+font-size:18px;
+line-height:1.85;
+font-style:italic;
+color:#929292;
 animation:textIn .5s ease
 }
 
-.center{
-text-align:center
+.event{
+margin:20px 0;
+padding:18px;
+border:1px solid #401616;
+border-radius:10px;
+background:rgba(50,0,0,.12)
 }
 
-.muted{
-color:var(--muted)
+.event-title{
+margin-bottom:8px;
+font-size:11px;
+font-weight:bold;
+letter-spacing:2px;
+color:var(--red2);
+text-transform:uppercase
 }
 
-.red{
-color:var(--red2)
+.warning{
+color:#bd2828;
+font-size:11px;
+font-weight:bold;
+letter-spacing:2px;
+text-transform:uppercase;
+animation:pulse 1.7s infinite
 }
 
-/* =====================
+.whisper{
+color:#555;
+font-family:Georgia,"Times New Roman",serif;
+font-style:italic
+}
+
+.horror{
+border-color:#481515!important;
+box-shadow:
+0 0 60px rgba(100,0,0,.08),
+0 30px 90px rgba(0,0,0,.7)
+}
+
+/* =========================
+   INPUTS EVENTUELS
+========================= */
+
+input,
+select{
+width:100%;
+padding:12px;
+border:1px solid #292929;
+border-radius:8px;
+background:#090909;
+color:#ddd;
+outline:none
+}
+
+input:focus,
+select:focus{
+border-color:#702222;
+box-shadow:0 0 0 2px rgba(120,20,20,.08)
+}
+
+input::placeholder{
+color:#555
+}
+
+/* =========================
    ANIMATIONS
-===================== */
+========================= */
 
-@keyframes screenIn{
+@keyframes boxIn{
 from{
 opacity:0;
-transform:translateY(12px)
-}
-to{
-opacity:1;
-transform:translateY(0)
-}
-}
-
-@keyframes sceneIn{
-from{
-opacity:0;
-transform:translateY(10px)
+transform:translateY(14px)
 }
 to{
 opacity:1;
@@ -754,7 +675,7 @@ transform:translateY(0)
 @keyframes textIn{
 from{
 opacity:0;
-transform:translateY(5px)
+transform:translateY(7px)
 }
 to{
 opacity:1;
@@ -765,7 +686,7 @@ transform:translateY(0)
 @keyframes choiceIn{
 from{
 opacity:0;
-transform:translateY(8px)
+transform:translateY(10px)
 }
 to{
 opacity:1;
@@ -773,41 +694,43 @@ transform:translateY(0)
 }
 }
 
-@keyframes eventIn{
+@keyframes endingIn{
 from{
-opacity:0;
-transform:scale(.98)
+opacity:0
 }
 to{
-opacity:1;
-transform:scale(1)
+opacity:1
 }
 }
 
 @keyframes pulse{
-0%,100%{opacity:1}
-50%{opacity:.45}
+0%,100%{
+opacity:1
+}
+50%{
+opacity:.45
+}
 }
 
-/* =====================
+/* =========================
    MOBILE
-===================== */
+========================= */
 
 @media(max-width:700px){
 
 .game-header{
-height:70px;
+min-height:68px;
 padding:0 4%
 }
 
 .game-header small{
 font-size:8px;
-letter-spacing:2px
+letter-spacing:3px
 }
 
 .game-header h1{
-font-size:16px;
-letter-spacing:2px
+font-size:17px;
+letter-spacing:3px
 }
 
 main{
@@ -815,17 +738,16 @@ width:94%;
 padding:18px 0
 }
 
-.story-box,
-.scene{
-min-height:calc(100vh - 210px);
-padding:25px 19px;
+.story-box{
+min-height:calc(100vh - 205px);
+padding:26px 19px;
 border-radius:13px
 }
 
 .story-time{
-font-size:9px;
+font-size:8px;
 letter-spacing:3px;
-margin-bottom:20px
+margin-bottom:19px
 }
 
 .speaker{
@@ -835,21 +757,12 @@ margin-bottom:12px
 
 .story-text{
 font-size:17px;
-line-height:1.75;
-min-height:170px
-}
-
-.narration{
-font-size:16px;
-line-height:1.75
-}
-
-.dialogue .text{
-font-size:16px
+line-height:1.8;
+min-height:165px
 }
 
 .choices{
-margin-top:23px;
+margin-top:22px;
 gap:9px
 }
 
@@ -858,12 +771,9 @@ padding:14px;
 font-size:13px
 }
 
-.chapter-title{
-font-size:20px
-}
-
 .status{
-gap:6px
+gap:6px;
+margin-top:10px
 }
 
 .status>div{
@@ -871,7 +781,7 @@ padding:10px 5px
 }
 
 .status span{
-font-size:8px;
+font-size:7px;
 letter-spacing:1px
 }
 
@@ -881,7 +791,7 @@ font-size:14px
 
 footer{
 min-height:60px;
-padding:10px 4%
+padding:9px 4%
 }
 
 .music{
@@ -889,12 +799,8 @@ gap:6px;
 font-size:10px
 }
 
-.music-name{
-font-size:10px
-}
-
 #volume{
-width:80px
+width:85px
 }
 
 #volumeValue{
@@ -907,33 +813,16 @@ font-size:11px
 }
 
 #toast{
-bottom:72px;
-max-width:90%;
+bottom:70px;
 font-size:12px
 }
 
-.menu{
-width:94%;
-padding:20px 0
-}
-
-.menu-title h1{
-font-size:27px;
-letter-spacing:3px
-}
-
-.menu-title p{
-font-size:9px;
-letter-spacing:2px
-}
-
-.menu-buttons button{
-padding:15px;
-font-size:14px
-}
-
 .ending-card{
-padding:34px 20px
+padding:32px 20px
+}
+
+#endingIcon{
+font-size:34px
 }
 
 .ending-card h2{
@@ -942,66 +831,74 @@ letter-spacing:2px
 }
 
 .ending-card p{
-font-size:14px
+font-size:14px;
+line-height:1.7
+}
+
+.chapter-title{
+font-size:20px
+}
+
+.narration{
+font-size:16px;
+line-height:1.75
+}
+
+.dialogue{
+padding:14px 16px
 }
 
 }
 
-/* =====================
+/* =========================
    PETITS TELEPHONES
-===================== */
+========================= */
 
 @media(max-width:380px){
 
 .game-header h1{
-font-size:14px
+font-size:15px
 }
 
-.story-box,
-.scene{
-padding:20px 15px
+.story-box{
+padding:21px 15px
 }
 
 .story-text{
 font-size:16px;
-line-height:1.7
+line-height:1.75
 }
 
 .choice{
-font-size:12px;
-padding:13px
+padding:13px;
+font-size:12px
 }
 
 .status span{
-font-size:7px
+font-size:6px
+}
+
+.status b{
+font-size:13px
 }
 
 #volume{
-width:62px
-}
-
-.music-name{
-display:none
-}
-
-.menu-title h1{
-font-size:23px
+width:65px
 }
 
 }
 
-/* =====================
+/* =========================
    GRANDS ECRANS
-===================== */
+========================= */
 
 @media(min-width:1200px){
 
 main{
-width:min(950px,80%)
+width:min(950px,82%)
 }
 
-.story-box,
-.scene{
+.story-box{
 min-height:520px
 }
 
@@ -1009,4 +906,4 @@ min-height:520px
 font-size:21px
 }
 
-  }
+   }
