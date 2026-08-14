@@ -59,55 +59,6 @@ id="continueBtn">
 💾 Continuer
 </button>
 
-<button
-class="choice"
-id="endingsBtn">
-🩸 Mes fins
-</button>
-
-</div>
-
-</section>
-
-
-<!-- =========================
-     MES FINS
-========================= -->
-
-<section
-id="endingsSection"
-class="endings-section hidden">
-
-<div class="endings-header">
-
-<div>
-<small>MYSTERY JOURNEY</small>
-<h2>🩸 MES FINS</h2>
-</div>
-
-<button
-id="closeEndingsBtn"
-class="small-btn">
-✕
-</button>
-
-</div>
-
-
-<div class="endings-counter">
-
-<span>Fins découvertes</span>
-
-<strong>
-<span id="endingsCount">0</span>/15
-</strong>
-
-</div>
-
-
-<div
-id="endingsList"
-class="endings-list">
 </div>
 
 </section>
@@ -125,42 +76,6 @@ class="endings-list">
 
 </div>
 
-
-<!-- =========================
-     DESCRIPTION D'UNE FIN
-========================= -->
-
-<div
-id="endingInfo"
-class="ending-info hidden">
-
-<div class="ending-info-card">
-
-<button
-id="closeEndingInfo"
-class="small-btn ending-close">
-✕
-</button>
-
-<div id="endingInfoIcon">
-🩸
-</div>
-
-<h2 id="endingInfoTitle">
-Fin
-</h2>
-
-<p id="endingInfoText"></p>
-
-</div>
-
-</div>
-
-
-<!-- =========================
-     MUSIQUE
-========================= -->
-
 <audio
 id="music"
 loop
@@ -172,164 +87,22 @@ type="audio/mpeg">
 
 </audio>
 
-
 <script>
 
-/* =========================================================
+/* =========================
    CONFIGURATION
-========================================================= */
+========================= */
 
 const SAVE_KEY =
 "mystery_journey_horror_save_v1";
-
-/*
-   IMPORTANT :
-   Cette clé est différente de la sauvegarde
-   de la partie.
-
-   Les fins restent donc débloquées même
-   lorsqu'on recommence une nouvelle partie.
-*/
-const ENDINGS_KEY =
-"mystery_journey_horror_endings_v1";
-
 
 const music =
 document.getElementById("music");
 
 
-/* =========================================================
-   LES 15 FINS
-========================================================= */
-
-const ENDINGS = [
-
-{
-id:"good",
-icon:"🌅",
-title:"La Vérité",
-description:
-"Tu as découvert la vérité derrière le mystère de Blackwood."
-},
-
-{
-id:"loop",
-icon:"🔄",
-title:"Le Cycle",
-description:
-"Tu pensais être sorti… mais quelque chose te ramène toujours au même endroit."
-},
-
-{
-id:"destroy",
-icon:"🔥",
-title:"Le Feu",
-description:
-"Tu as choisi de mettre un terme au mystère par le feu."
-},
-
-{
-id:"guardian",
-icon:"🔒",
-title:"Le Gardien",
-description:
-"Tu as accepté un rôle que personne ne voulait prendre."
-},
-
-{
-id:"escape",
-icon:"🚗",
-title:"L'Échappée",
-description:
-"Tu as réussi à quitter Blackwood… mais tout n'est peut-être pas terminé."
-},
-
-{
-id:"watched",
-icon:"👁️",
-title:"Ils te regardent",
-description:
-"Tu as découvert que quelque chose t'observait depuis le début."
-},
-
-{
-id:"mirror_end",
-icon:"🪞",
-title:"Le Reflet",
-description:
-"Tu as découvert que le miroir cachait bien plus qu'un simple reflet."
-},
-
-{
-id:"memory_end",
-icon:"🧠",
-title:"L'Oubli",
-description:
-"Tu as choisi de laisser tes souvenirs derrière toi."
-},
-
-{
-id:"house_end",
-icon:"🚪",
-title:"La Porte",
-description:
-"Tu as franchi la porte et quitté la maison."
-},
-
-{
-id:"chapter1_escape",
-icon:"🏃",
-title:"Trop tôt",
-description:
-"Tu as quitté l'histoire avant d'en découvrir tous les secrets."
-},
-
-{
-id:"basement_end",
-icon:"⬇️",
-title:"Le Sous-sol",
-description:
-"Tu as découvert ce qui se cachait sous la maison."
-},
-
-{
-id:"secret_escape",
-icon:"🔑",
-title:"Le Secret",
-description:
-"Tu as choisi de ne pas découvrir ce qui se trouvait derrière la dernière porte."
-},
-
-{
-id:"upper_end",
-icon:"👤",
-title:"La Silhouette",
-description:
-"Tu as rencontré quelque chose qui n'aurait jamais dû être là."
-},
-
-{
-id:"survivor_end",
-icon:"🕯️",
-title:"Le Survivant",
-description:
-"Tu as survécu à la rencontre avec l'inconnu."
-},
-
-{
-id:"house_escape",
-icon:"🏚️",
-title:"La Fuite",
-description:
-"Tu as trouvé une sortie… mais Blackwood semble ne jamais avoir existé."
-}
-
-];
-
-
-/* =========================================================
+/* =========================
    MUSIQUE
-========================================================= */
+========================= */
 
 function startMusic(){
 
@@ -353,19 +126,11 @@ startMusic,
 );
 
 
-/* =========================================================
+/* =========================
    NOUVELLE PARTIE
-========================================================= */
+========================= */
 
 function startGame(){
-
-/*
-   IMPORTANT :
-   On supprime UNIQUEMENT la sauvegarde
-   de la partie.
-
-   Les fins découvertes restent intactes.
-*/
 
 try{
 
@@ -388,9 +153,9 @@ window.location.href =
 }
 
 
-/* =========================================================
+/* =========================
    CONTINUER
-========================================================= */
+========================= */
 
 function continueGame(){
 
@@ -423,249 +188,9 @@ startGame();
 }
 
 
-/* =========================================================
-   RÉCUPÉRER LES FINS
-========================================================= */
-
-function getUnlockedEndings(){
-
-try{
-
-const data =
-localStorage.getItem(
-ENDINGS_KEY
-);
-
-if(!data){
-return [];
-}
-
-const endings =
-JSON.parse(data);
-
-if(!Array.isArray(endings)){
-return [];
-}
-
-return endings;
-
-}catch(error){
-
-console.error(
-"Erreur lecture fins :",
-error
-);
-
-return [];
-
-}
-
-}
-
-
-/* =========================================================
-   AFFICHER MES FINS
-========================================================= */
-
-function renderEndings(){
-
-const list =
-document.getElementById(
-"endingsList"
-);
-
-const count =
-document.getElementById(
-"endingsCount"
-);
-
-if(!list || !count){
-return;
-}
-
-const unlocked =
-getUnlockedEndings();
-
-count.textContent =
-Math.min(
-unlocked.length,
-15
-);
-
-list.innerHTML = "";
-
-
-ENDINGS.forEach((ending,index)=>{
-
-const isUnlocked =
-unlocked.includes(
-ending.id
-);
-
-const card =
-document.createElement("button");
-
-card.className =
-"ending-item " +
-(isUnlocked ? "unlocked" : "locked");
-
-
-if(isUnlocked){
-
-card.innerHTML = `
-<span class="ending-number">
-${String(index + 1).padStart(2,"0")}
-</span>
-
-<span class="ending-icon">
-${ending.icon}
-</span>
-
-<span class="ending-name">
-${ending.title}
-</span>
-
-<span class="ending-arrow">
-›
-</span>
-`;
-
-card.addEventListener(
-"click",
-()=>{
-showEndingInfo(ending);
-}
-);
-
-}else{
-
-card.innerHTML = `
-<span class="ending-number">
-${String(index + 1).padStart(2,"0")}
-</span>
-
-<span class="ending-icon">
-❓
-</span>
-
-<span class="ending-name">
-Fin pas découverte
-</span>
-
-<span class="ending-lock">
-🔒
-</span>
-`;
-
-}
-
-list.appendChild(card);
-
-});
-
-}
-
-
-/* =========================================================
-   OUVRIR MES FINS
-========================================================= */
-
-function openEndings(){
-
-const section =
-document.getElementById(
-"endingsSection"
-);
-
-if(!section){
-return;
-}
-
-renderEndings();
-
-section.classList.remove(
-"hidden"
-);
-
-}
-
-
-/* =========================================================
-   FERMER MES FINS
-========================================================= */
-
-function closeEndings(){
-
-const section =
-document.getElementById(
-"endingsSection"
-);
-
-if(section){
-section.classList.add(
-"hidden"
-);
-}
-
-}
-
-
-/* =========================================================
-   DESCRIPTION FIN
-========================================================= */
-
-function showEndingInfo(ending){
-
-const modal =
-document.getElementById(
-"endingInfo"
-);
-
-document.getElementById(
-"endingInfoIcon"
-).textContent =
-ending.icon;
-
-document.getElementById(
-"endingInfoTitle"
-).textContent =
-ending.title;
-
-document.getElementById(
-"endingInfoText"
-).textContent =
-ending.description;
-
-modal.classList.remove(
-"hidden"
-);
-
-}
-
-
-/* =========================================================
-   FERMER DESCRIPTION
-========================================================= */
-
-function closeEndingInfo(){
-
-const modal =
-document.getElementById(
-"endingInfo"
-);
-
-if(modal){
-modal.classList.add(
-"hidden"
-);
-}
-
-}
-
-
-/* =========================================================
+/* =========================
    BOUTONS
-========================================================= */
+========================= */
 
 const newGameBtn =
 document.getElementById(
@@ -675,21 +200,6 @@ document.getElementById(
 const continueBtn =
 document.getElementById(
 "continueBtn"
-);
-
-const endingsBtn =
-document.getElementById(
-"endingsBtn"
-);
-
-const closeEndingsBtn =
-document.getElementById(
-"closeEndingsBtn"
-);
-
-const closeEndingInfoBtn =
-document.getElementById(
-"closeEndingInfo"
 );
 
 
@@ -708,63 +218,6 @@ if(continueBtn){
 continueBtn.addEventListener(
 "click",
 continueGame
-);
-
-}
-
-
-if(endingsBtn){
-
-endingsBtn.addEventListener(
-"click",
-openEndings
-);
-
-}
-
-
-if(closeEndingsBtn){
-
-closeEndingsBtn.addEventListener(
-"click",
-closeEndings
-);
-
-}
-
-
-if(closeEndingInfoBtn){
-
-closeEndingInfoBtn.addEventListener(
-"click",
-closeEndingInfo
-);
-
-}
-
-
-/* =========================================================
-   FERMETURE EN CLIQUANT EN DEHORS
-========================================================= */
-
-const endingInfo =
-document.getElementById(
-"endingInfo"
-);
-
-if(endingInfo){
-
-endingInfo.addEventListener(
-"click",
-(event)=>{
-
-if(event.target === endingInfo){
-
-closeEndingInfo();
-
-}
-
-}
 );
 
 }
